@@ -7,9 +7,9 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-PKG_VERSION:=2020.07
+PKG_VERSION:=2021.04-rc1
 
-PKG_HASH:=c1f5bf9ee6bb6e648edbf19ce2ca9452f614b08a9f886f1a566aa42e8cf05f6a
+PKG_HASH:=876caeaab9e29f22feff7aff3db6ec44d209ab2db6e616bb14b6370daf713ef5
 
 PKG_MAINTAINER:=HandsomeYingyan<handsomeyingyan@gmail.com>
 

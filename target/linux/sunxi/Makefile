@@ -25,7 +25,7 @@ KERNELNAME:=zImage dtbs
 # H3: quad Cortex-A7
 # R40: quad Cortex-A7
 # F1Cx00s: ARM 926EJS
-
+# S3: Cortex-A7
 
 
 include $(INCLUDE_DIR)/target.mk

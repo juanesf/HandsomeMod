@@ -282,6 +282,12 @@ define U-Boot/sopine_baseboard
   UENV:=a64
 endef
 
+define U-Boot/pinecube
+  BUILD_SUBTARGET:=cortexa7
+  NAME:=Pine64 PineCube
+  BUILD_DEVICES:=pinecube
+endef
+
 define U-Boot/orangepi_zero_plus
   BUILD_SUBTARGET:=cortexa53
   NAME:=Xunlong Orange Pi Zero Plus
@@ -391,6 +397,7 @@ UBOOT_TARGETS := \
 	orangepi_pc2 \
 	pangolin \
 	pine64_plus \
+	pinecube \
 	sopine_baseboard \
 	orangepi_zero_plus \
 	libretech_all_h3_cc_h5 \

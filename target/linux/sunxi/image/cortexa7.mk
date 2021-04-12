@@ -272,4 +272,6 @@ define Device/pinecube
   DEVICE_PACKAGES:=kmod-rtc-sunxi
   SOC := sun8i-s3
 endef
+
 TARGET_DEVICES += pinecube
+

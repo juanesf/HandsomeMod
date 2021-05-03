@@ -47,14 +47,10 @@ https://github.com/openwrt/openwrt
 #  The Main Target Support By HandsomeMod
 
 - Rapsberry pies (BCM27xx)
-
 - Allwinner Socs （Sunxi）
-
 - Freescale I.MX6ULL Family
-
-- MSM8916 (Planing)
-
-- Samsung Exynos 4412 On samsung i9300(planing)
+- Loongson64 Family (5.10) WIP
+- Qualcomm MSM89xx Family (5.10) WIP
 
 
 ## License

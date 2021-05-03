@@ -260,8 +260,18 @@ TARGET_DEVICES += sinlinx_sinlinx-sina33
 define Device/sinlinx_sinlinx-sina33-v3
   DEVICE_VENDOR := SinLinx
   DEVICE_MODEL := SinA33 V3.4
-  DEVICE_PACKAGES:=kmod-rtc-sunxi
+  DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-brcmfmac kmod-input-touchscreen-ft5x06 \
+	brcmfmac-firmware-4329-sdio wpad-basic-wolfssl
   SOC := sun8i-a33
 endef
 
 TARGET_DEVICES += sinlinx_sinlinx-sina33-v3
+
+define Device/pine64_pinecube
+  DEVICE_VENDOR := Pine64
+  DEVICE_MODEL := Pinecube IPCam
+  DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-rtl8189es kmod-sun6i-csi kmod-video-csi-ov5640
+  SOC := sun8i-s3
+endef
+
+TARGET_DEVICES += pine64_pinecube

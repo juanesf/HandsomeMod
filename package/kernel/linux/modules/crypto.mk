@@ -40,7 +40,9 @@ define KernelPackage/crypto-aead
   KCONFIG:= \
 	CONFIG_CRYPTO_AEAD \
 	CONFIG_CRYPTO_AEAD2
-  FILES:=$(LINUX_DIR)/crypto/aead.ko
+  FILES:= \
+	  $(LINUX_DIR)/crypto/aead.ko \
+	  $(LINUX_DIR)/crypto/geniv.ko@ge5.10
   AUTOLOAD:=$(call AutoLoad,09,aead,1)
   $(call AddDepends/crypto, +kmod-crypto-null)
 endef
@@ -50,8 +52,12 @@ $(eval $(call KernelPackage,crypto-aead))
 
 define KernelPackage/crypto-arc4
   TITLE:=ARC4 cipher CryptoAPI module
-  KCONFIG:=CONFIG_CRYPTO_ARC4
-  FILES:=$(LINUX_DIR)/crypto/arc4.ko
+  KCONFIG:= \
+	  CONFIG_CRYPTO_ARC4 \
+	  CONFIG_CRYPTO_USER_API_ENABLE_OBSOLETE=y
+  FILES:= \
+	  $(LINUX_DIR)/crypto/arc4.ko \
+	  $(LINUX_DIR)/lib/crypto/libarc4.ko
   AUTOLOAD:=$(call AutoLoad,09,arc4)
   $(call AddDepends/crypto)
 endef
@@ -313,7 +319,15 @@ $(eval $(call KernelPackage,crypto-hmac))
 
 define KernelPackage/crypto-hw-ccp
   TITLE:=AMD Cryptographic Coprocessor
-  DEPENDS:=+kmod-crypto-authenc +kmod-crypto-hash +kmod-crypto-manager +kmod-random-core +kmod-crypto-sha1 +kmod-crypto-sha256 +kmod-crypto-rsa
+  DEPENDS:= \
+	@TARGET_x86 \
+	+kmod-crypto-authenc \
+	+kmod-crypto-hash \
+	+kmod-crypto-manager \
+	+kmod-crypto-rsa \
+	+kmod-crypto-sha1 \
+	+kmod-crypto-sha256 \
+	+kmod-random-core
   KCONFIG:= \
 	CONFIG_CRYPTO_HW=y \
 	CONFIG_CRYPTO_DEV_CCP=y \
@@ -645,6 +659,7 @@ define KernelPackage/crypto-misc
   TITLE:=Other CryptoAPI modules
   DEPENDS:=+kmod-crypto-xts
   KCONFIG:= \
+	CONFIG_CRYPTO_USER_API_ENABLE_OBSOLETE=y \
 	CONFIG_CRYPTO_CAMELLIA_X86_64 \
 	CONFIG_CRYPTO_BLOWFISH_X86_64 \
 	CONFIG_CRYPTO_TWOFISH_X86_64 \

@@ -265,13 +265,3 @@ define Device/sinlinx_sinlinx-sina33-v3
 endef
 
 TARGET_DEVICES += sinlinx_sinlinx-sina33-v3
-
-define Device/pinecube
-  DEVICE_VENDOR := Pine64
-  DEVICE_MODEL := PineCube
-  DEVICE_PACKAGES:=kmod-rtc-sunxi
-  SOC := sun8i-s3
-endef
-
-TARGET_DEVICES += pinecube
-

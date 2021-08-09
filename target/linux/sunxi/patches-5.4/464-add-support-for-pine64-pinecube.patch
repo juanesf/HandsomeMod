@@ -57,12 +57,12 @@ index 000000000..df68e501c
 +
 +		led1 {
 +			label = "pine64:ir:led1";
-+			gpios = <&pio 1 10 GPIO_ACTIVE_HIGH>; /* PB10 */
++			gpios = <&pio 1 10 GPIO_ACTIVE_LOW>; /* PB10 */
 +		};
 +
 +		led2 {
 +			label = "pine64:ir:led2";
-+			gpios = <&pio 1 12 GPIO_ACTIVE_HIGH>; /* PB12 */
++			gpios = <&pio 1 12 GPIO_ACTIVE_LOW>; /* PB12 */
 +		};
 +	};
 +
@@ -174,7 +174,7 @@ index 000000000..df68e501c
 +
 +	button-200 {
 +		label = "Setup";
-+		linux,code = <KEY_SETUP>;
++		linux,code = <KEY_WLAN>;
 +		channel = <0>;
 +		voltage = <190000>;
 +	};

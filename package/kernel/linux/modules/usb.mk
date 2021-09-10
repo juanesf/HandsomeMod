@@ -353,7 +353,7 @@ define KernelPackage/usb-wdm
   FILES:=$(LINUX_DIR)/drivers/usb/class/cdc-wdm.ko
   AUTOLOAD:=$(call AutoProbe,cdc-wdm)
 $(call AddDepends/usb)
-$(call AddDepends/usb-net,+kmod-usb-net-cdc-ether)
+$(call AddDepends/usb-net,+!LINUX_5_4:kmod-usb-net-cdc-ether)
 endef
 
 define KernelPackage/usb-wdm/description
@@ -416,7 +416,7 @@ $(eval $(call KernelPackage,usb-serial))
 
 define AddDepends/usb-serial
   SUBMENU:=$(USB_MENU)
-  DEPENDS+=kmod-usb-serial $(1)
+  DEPENDS+=+kmod-usb-serial $(1)
 endef
 
 
@@ -1071,6 +1071,7 @@ $(eval $(call KernelPackage,usb-net-mcs7830))
 
 define KernelPackage/usb-net-smsc95xx
   TITLE:=SMSC LAN95XX based USB 2.0 10/100 ethernet devices
+  DEPENDS:=+LINUX_5_10:kmod-libphy
   KCONFIG:=CONFIG_USB_NET_SMSC95XX
   FILES:=$(LINUX_DIR)/drivers/$(USBNET_DIR)/smsc95xx.ko
   AUTOLOAD:=$(call AutoProbe,smsc95xx)

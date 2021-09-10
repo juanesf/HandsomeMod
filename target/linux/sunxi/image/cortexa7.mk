@@ -248,6 +248,15 @@ endef
 
 TARGET_DEVICES += sipeed_licheepi-zero-dock
 
+define Device/sinlinx_sinlinx-sinv3s
+  DEVICE_VENDOR := SinLinx
+  DEVICE_MODEL := SinV3s
+  DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-esp8089
+  SOC := sun8i-v3s
+endef
+
+TARGET_DEVICES += sinlinx_sinlinx-sinv3s
+
 define Device/sinlinx_sinlinx-sina33
   DEVICE_VENDOR := SinLinx
   DEVICE_MODEL := SinA33
@@ -261,7 +270,7 @@ define Device/sinlinx_sinlinx-sina33-v3
   DEVICE_VENDOR := SinLinx
   DEVICE_MODEL := SinA33 V3.4
   DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-brcmfmac kmod-input-touchscreen-ft5x06 \
-	brcmfmac-firmware-4329-sdio wpad-basic-wolfssl
+	brcmfmac-firmware-43362-sdio wpad-basic-wolfssl
   SOC := sun8i-a33
 endef
 
@@ -275,3 +284,5 @@ define Device/pine64_pinecube
 endef
 
 TARGET_DEVICES += pine64_pinecube
+
+

@@ -11,7 +11,7 @@
 
 include $(TOPDIR)/rules.mk
 
-ARCH:=arm
+ARCH:=aarch64
 BOARD:=msm89xx
 BOARDNAME:=Qualcomm Msm89xx Soc
 FEATURES:=fpu usb ext4 display rtc usbgadget gpio
@@ -20,7 +20,7 @@ MAINTAINER:=HandsomeYingyan <handsomeyingyan@gmail.com>
 
 KERNEL_PATCHVER:=5.10
 KERNEL_TESTING_PATCHVER:=5.10
-KERNELNAME:=zImage dtbs
+KERNELNAME:=Image.gz dtbs
 
 define Target/Description
 	Build firmware images for Qualcomm Msm89xx Soc based SmartPhones Tablets and Boards.

@@ -1,6 +1,7 @@
 PKG_DRIVERS += \
-	ath ath5k ath6kl ath6kl-sdio ath6kl-usb ath9k ath9k-common ath9k-htc ath10k \
-	carl9170 owl-loader ar5523 wil6210
+	ath ath5k ath6kl ath6kl-sdio ath6kl-usb ath9k ath9k-common ath9k-htc ath10k ath10k-smallbuffers \
+	carl9170 owl-loader ar5523 wil6210 wcn36xx
+
 
 PKG_CONFIG_DEPENDS += \
 	CONFIG_PACKAGE_ATH_DEBUG \
@@ -22,7 +23,8 @@ ifdef CONFIG_PACKAGE_MAC80211_DEBUGFS
 	CARL9170_DEBUGFS \
 	ATH5K_DEBUG \
 	ATH6KL_DEBUG \
-	WIL6210_DEBUGFS
+	WIL6210_DEBUGFS \
+  WCN36XX_DEBUGFS
 endif
 
 ifdef CONFIG_PACKAGE_MAC80211_TRACING
@@ -55,6 +57,7 @@ config-$(CONFIG_ATH10K_THERMAL) += ATH10K_THERMAL
 
 config-$(call config_package,ath9k-htc) += ATH9K_HTC
 config-$(call config_package,ath10k) += ATH10K ATH10K_PCI
+config-$(call config_package,ath10k-smallbuffers) += ATH10K ATH10K_PCI ATH10K_SMALLBUFFERS
 
 config-$(call config_package,ath5k) += ATH5K
 ifdef CONFIG_TARGET_ath25
@@ -71,6 +74,8 @@ config-$(call config_package,carl9170) += CARL9170
 config-$(call config_package,ar5523) += AR5523
 
 config-$(call config_package,wil6210) += WIL6210
+
+config-$(call config_package,wcn36xx) += WCN36XX
 
 define KernelPackage/ath/config
   if PACKAGE_kmod-ath
@@ -260,6 +265,7 @@ define KernelPackage/ath10k
 	$(PKG_BUILD_DIR)/drivers/net/wireless/ath/ath10k/ath10k_core.ko \
 	$(PKG_BUILD_DIR)/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
   AUTOLOAD:=$(call AutoProbe,ath10k_pci)
+  VARIANT:=regular
 endef
 
 define KernelPackage/ath10k/description
@@ -273,12 +279,18 @@ define KernelPackage/ath10k/config
        config ATH10K_LEDS
                bool "Enable LED support"
                default y
-               depends on PACKAGE_kmod-ath10k
+               depends on PACKAGE_kmod-ath10k || PACKAGE_kmod-ath10k-smallbuffers
 
        config ATH10K_THERMAL
                bool "Enable thermal sensors and throttling support"
-               depends on PACKAGE_kmod-ath10k
+               depends on PACKAGE_kmod-ath10k || PACKAGE_kmod-ath10k-smallbuffers
 
+endef
+
+define KernelPackage/ath10k-smallbuffers
+  $(call KernelPackage/ath10k)
+  TITLE+= (small buffers for low-RAM devices)
+  VARIANT:=smallbuffers
 endef
 
 define KernelPackage/carl9170
@@ -320,4 +332,13 @@ define KernelPackage/wil6210
   DEPENDS+= @PCI_SUPPORT +kmod-mac80211 +wil6210-firmware
   FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/ath/wil6210/wil6210.ko
   AUTOLOAD:=$(call AutoProbe,wil6210)
+endef
+
+# missing firmware
+define KernelPackage/wcn36xx
+  $(call KernelPackage/mac80211/Default)
+  TITLE:=Qualcomm Atheros WCN3660/3680 support
+  DEPENDS+= +kmod-mac80211 +kmod-qcom-wcnss
+  FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/ath/wcn36xx/wcn36xx.ko
+  AUTOLOAD:=$(call AutoProbe,wcn36xx)
 endef

@@ -27,10 +27,10 @@ DEFAULT_PACKAGES:=\
 	urandom-seed \
 	urngd
 	
-ifneq ($(CONFIG_NETWORK_NETIFD),)
-DEFAULT_PACKAGES+=netifd
-else
+ifeq ($(CONFIG_NETWORK_NETWORK_MANAGER),y)
 DEFAULT_PACKAGES+=network-manager ifupdown
+else
+DEFAULT_PACKAGES+=netifd 
 endif
 
 ifneq ($(CONFIG_SELINUX),)
@@ -247,6 +247,10 @@ ifeq ($(DUMP),1)
     CPU_CFLAGS += -matomic
     CPU_CFLAGS_arc700 = -mcpu=arc700
     CPU_CFLAGS_archs = -mcpu=archs
+  endif
+  ifeq ($(ARCH),riscv64)
+    CPU_TYPE ?= riscv64
+    CPU_CFLAGS_riscv64:=-mabi=lp64d -march=rv64imafdc
   endif
   ifneq ($(CPU_TYPE),)
     ifndef CPU_CFLAGS_$(CPU_TYPE)
